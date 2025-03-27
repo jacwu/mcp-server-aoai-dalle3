@@ -44,7 +44,7 @@ const DownloadImageSchema = z.object({
 // Create server instance
 const server = new Server(
     {
-        name: "dalle-mcp",
+        name: "aoai-dalle3-mcp",
         version: "1.0.0"
     },
     {
@@ -62,7 +62,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         tools: [
             {
                 name: "generate_image",
-                description: "Generate an image using DALL-E 3",
+                description: "Generate an image using AOAI DALL-E 3",
                 inputSchema: {
                     type: "object",
                     properties: {
@@ -135,7 +135,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                     ],
                 };
             } catch (error: any) {
-                throw new Error(`DALL-E API error: ${error?.message || 'Unknown error'}`);
+                throw new Error(`error: ${error?.message || 'Unknown error'}`);
             }
         } else if (name === "download_image") {
             const { imageUrl, localPath, fileName } = DownloadImageSchema.parse(args);

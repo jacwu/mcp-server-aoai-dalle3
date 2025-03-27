@@ -13,28 +13,29 @@ export class ImageService {
   }
 
   async generateImage(prompt: string, size: string, quality: string, style: string): Promise<string> {
-    console.error(`Generating image with prompt: ${prompt}, size: ${size}, quality: ${quality}, style: ${style}`);
-    console.error(`Requesting image generation...`);
-    console.error(`Current time: ${new Date().toISOString()}`);
-    
-    const response = await this.client.images.generate({
-      model: this.deploymentName,
-      prompt,
-      n: 1,
-      quality: quality as any,
-      size: size as any,
-      style: style as any
-    });
-    
-    console.error(`Current time: ${new Date().toISOString()}`);
-    console.error(`Image generation response: ${JSON.stringify(response)}`);
-    const generatedImage = response.data[0];
-    
-    console.error(`Generated image URL: ${generatedImage.url}`);
-    
-    return generatedImage.url || "";
+    try {
+      const response = await this.client.images.generate({
+        model: this.deploymentName,
+        prompt,
+        n: 1,
+        quality: quality as any,
+        size: size as any,
+        style: style as any
+      });
+      
+      const generatedImage = response.data[0];
+      if (!generatedImage || !generatedImage.url) {
+        throw new Error("No image URL returned.");
+      }
+      
+      return generatedImage.url || "";
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`Error generating image: ${errorMessage}`);
+    }
   }
 
+  // refer to the download implementation in https://github.com/GLips/Figma-Context-MCP/tree/main
   async downloadImage(fileName: string, localPath: string, imageUrl: string): Promise<string> {
     try {
       // Ensure local path exists
