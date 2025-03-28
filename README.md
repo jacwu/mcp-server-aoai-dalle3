@@ -1,4 +1,4 @@
-# Azure Open AI DALL-E 3 MCP Server
+# Azure OpenAI DALL-E 3 MCP Server
 
 An Azure OpenAI DALL-E 3 integration server implementing the Model Context Protocol (MCP). This server provides a bridge between Azure OpenAI's DALL-E 3 image generation capability and MCP clients.
 
