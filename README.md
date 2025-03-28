@@ -1,11 +1,11 @@
-# AOAI Dalle3 MCP Server
+# Azure Open AI DALL-E 3 MCP Server
 
-An Azure OpenAI DALL-E integration server implementing the Model Context Protocol (MCP). This server provides a bridge between Azure OpenAI's DALL-E 3 image generation capabilities and MCP-compatible clients.
+An Azure OpenAI DALL-E 3 integration server implementing the Model Context Protocol (MCP). This server provides a bridge between Azure OpenAI's DALL-E 3 image generation capability and MCP clients.
 
 ## Available Tools
 
 ### `generate_image`
-Generates images using DALL-E 3 with the following parameters:
+Generates images using AOAI DALL-E 3 with the following parameters:
 - `prompt` (required): Text description of the image to generate
 - - `size` (optional): Image dimensions (default: 1024x1024). Available options:
   - `1024x1024`
@@ -49,17 +49,19 @@ npm run build
 
 ```json
 {
-  "dalle3": {
-                "command": "node",
-                "args": [
-                    "./build/index.js"
-                ],
-                "env": {
-                    "AZURE_OPENAI_ENDPOINT": "<endpoint>",
-                    "AZURE_OPENAI_API_KEY": "<key>",
-                    "AZURE_OPENAI_DEPLOYMENT_NAME": "<deployment>"
-                }
-            }
+  "mcpServers": {
+    "dalle3": {
+      "command": "node",
+      "args": [
+        "path/to/mcp-server-aoai-dalle3/build/index.js"
+      ],
+      "env": {
+        "AZURE_OPENAI_ENDPOINT": "<endpoint>",
+        "AZURE_OPENAI_API_KEY": "<key>",
+        "AZURE_OPENAI_DEPLOYMENT_NAME": "<deployment>"
+      }
+    }
+  }
 }
 ```
 
